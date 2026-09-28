@@ -1,0 +1,721 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>StyleZone - Your Fashion Store</title>
+
+    <link rel="stylesheet" href="{% static 'shop/css/style.css' %}">
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+</head>
+
+
+<body>
+
+
+<!-- ================================
+     Navigation
+================================= -->
+
+<header class="navbar">
+
+    <div class="logo">
+        STYLEZONE
+    </div>
+
+    <nav>
+
+        <a href="/">
+            Home
+        </a>
+
+        <a href="{% url 'product_list' %}">
+            Shop
+        </a>
+
+        <div class="nav-icons">
+
+            <!-- Search -->
+            <a href="{% url 'product_list' %}" class="nav-action">
+                <i data-lucide="search"></i>
+                <span>Search</span>
+            </a>
+
+            <!-- My Orders -->
+            <a href="{% url 'my_orders' %}" class="nav-action">
+                <i data-lucide="package"></i>
+                <span>My Orders</span>
+            </a>
+
+            <!-- Bag -->
+            <a href="{% url 'cart' %}" class="nav-action">
+                <i data-lucide="shopping-bag"></i>
+                <span>Bag</span>
+            </a>
+
+            <!-- Profile -->
+            <a href="{% url 'profile' %}" class="nav-action">
+                <i data-lucide="user"></i>
+                <span>Profile</span>
+            </a>
+
+        </div>
+
+    </nav>
+
+</header>
+
+<!-- ================================
+     Hero Section
+================================= -->
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <h1>
+            Find Your<br>
+            Everyday Style
+        </h1>
+
+        <p class="hero-description">
+            Discover simple, comfortable and stylish fashion
+            made for your everyday moments.
+        </p>
+
+        <a href="{% url 'product_list' %}" class="hero-button">
+            SHOP NOW
+        </a>
+
+    </div>
+
+
+    <div class="hero-image">
+
+        <img
+            src="{% static 'shop/images/normalized/unique_top.png' %}"
+            alt="StyleZone Fashion"
+        >
+
+    </div>
+
+</section>
+
+
+<!-- ================================
+     Categories
+================================= -->
+
+<section class="categories">
+
+    <div class="section-heading">
+
+        <p>
+            EXPLORE
+        </p>
+
+        <h2>
+            Shop By Category
+        </h2>
+
+    </div>
+
+
+    <div class="category-container">
+
+        <!-- Women -->
+
+        <a
+            href="{% url 'product_list' %}?category=women"
+            class="category-card"
+        >
+
+            <div class="category-image">
+
+                <img
+                    src="{% static 'shop/images/normalized/women_dress_01.png' %}"
+                    alt="Women's Fashion"
+                >
+
+            </div>
+
+            <h3>
+                Women
+            </h3>
+
+        </a>
+
+
+        <!-- Men -->
+
+        <a
+            href="{% url 'product_list' %}?category=men"
+            class="category-card"
+        >
+
+            <div class="category-image">
+
+                <img
+                    src="{% static 'shop/images/normalized/men_shirt_01.png' %}"
+                    alt="Men's Fashion"
+                >
+
+            </div>
+
+            <h3>
+                Men
+            </h3>
+
+        </a>
+
+
+        <!-- Indian Wear -->
+
+        <a
+            href="{% url 'product_list' %}?category=indian"
+            class="category-card"
+        >
+
+            <div class="category-image">
+
+                <img
+                    src="{% static 'shop/images/normalized/saree_01.png' %}"
+                    alt="Indian Wear"
+                >
+
+            </div>
+
+            <h3>
+                Indian Wear
+            </h3>
+
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- ================================
+     Best Sellers
+================================= -->
+
+<section class="best-sellers">
+
+    <div class="section-heading">
+
+        <p>
+            STYLEZONE
+        </p>
+
+        <h2>
+            Best Sellers ⭐
+        </h2>
+
+        <p>
+            Our most loved styles
+        </p>
+
+    </div>
+
+
+    <div class="products-container">
+
+        {% for product in best_sellers|slice:":4" %}
+
+        <div class="product-card">
+
+            <div class="product-image">
+
+                <a href="{% url 'product_details' product.product_id %}">
+
+                    <img
+                        src="{% static 'shop/' %}{{ product.image_url }}"
+                        alt="{{ product.product_name }}"
+                    >
+
+                </a>
+
+            </div>
+
+
+            <div class="product-info">
+
+                <p class="product-brand">
+                    {{ product.brand }}
+                </p>
+
+                <h2>
+                    {{ product.product_name }}
+                </h2>
+
+                <p class="product-color">
+                    {{ product.color }}
+                </p>
+
+
+                <div class="price-section">
+
+                    <span class="price">
+                        ₹{{ product.price }}
+                    </span>
+
+                    {% if product.discount_percent %}
+
+                    <span class="discount">
+                        {{ product.discount_percent }}% OFF
+                    </span>
+
+                    {% endif %}
+
+                </div>
+
+
+                <a
+                    href="{% url 'product_details' product.product_id %}"
+                    class="view-details"
+                >
+                    View Details
+                </a>
+
+            </div>
+
+        </div>
+
+        {% empty %}
+
+        <div class="empty-products">
+
+            <h2>
+                No best sellers available
+            </h2>
+
+            <p>
+                Best seller products will appear here.
+            </p>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+
+    <div class="best-sellers-button-container">
+
+        <a
+            href="{% url 'product_list' %}?category=bestseller"
+            class="best-sellers-button"
+        >
+            VIEW ALL BEST SELLERS
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- ================================
+     Women's Collection
+================================= -->
+
+<section class="collection-section">
+
+    <div class="section-heading">
+
+        <p>
+            WOMEN
+        </p>
+
+        <h2>
+            Women's Collection
+        </h2>
+
+    </div>
+
+
+    <div class="products-container">
+
+        {% for product in women_products|slice:":4" %}
+
+        <div class="product-card">
+
+            <div class="product-image">
+
+                <a href="{% url 'product_details' product.product_id %}">
+
+                    <img
+                        src="{% static 'shop/' %}{{ product.image_url }}"
+                        alt="{{ product.product_name }}"
+                    >
+
+                </a>
+
+            </div>
+
+
+            <div class="product-info">
+
+                <p class="product-brand">
+                    {{ product.brand }}
+                </p>
+
+                <h2>
+                    {{ product.product_name }}
+                </h2>
+
+                <p class="product-color">
+                    {{ product.color }}
+                </p>
+
+
+                <div class="price-section">
+
+                    <span class="price">
+                        ₹{{ product.price }}
+                    </span>
+
+                </div>
+
+
+                <a
+                    href="{% url 'product_details' product.product_id %}"
+                    class="view-details"
+                >
+                    View Details
+                </a>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+
+    <div class="best-sellers-button-container">
+
+        <a
+            href="{% url 'product_list' %}?category=women"
+            class="best-sellers-button"
+        >
+            VIEW ALL WOMEN'S FASHION
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- ================================
+     Men's Collection
+================================= -->
+
+<section class="collection-section">
+
+    <div class="section-heading">
+
+        <p>
+            MEN
+        </p>
+
+        <h2>
+            Men's Collection
+        </h2>
+
+    </div>
+
+
+    <div class="products-container">
+
+        {% for product in men_products|slice:":4" %}
+
+        <div class="product-card">
+
+            <div class="product-image">
+
+                <a href="{% url 'product_details' product.product_id %}">
+
+                    <img
+                        src="{% static 'shop/' %}{{ product.image_url }}"
+                        alt="{{ product.product_name }}"
+                    >
+
+                </a>
+
+            </div>
+
+
+            <div class="product-info">
+
+                <p class="product-brand">
+                    {{ product.brand }}
+                </p>
+
+                <h2>
+                    {{ product.product_name }}
+                </h2>
+
+                <p class="product-color">
+                    {{ product.color }}
+                </p>
+
+
+                <div class="price-section">
+
+                    <span class="price">
+                        ₹{{ product.price }}
+                    </span>
+
+                </div>
+
+
+                <a
+                    href="{% url 'product_details' product.product_id %}"
+                    class="view-details"
+                >
+                    View Details
+                </a>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+
+    <div class="best-sellers-button-container">
+
+        <a
+            href="{% url 'product_list' %}?category=men"
+            class="best-sellers-button"
+        >
+            VIEW ALL MEN'S FASHION
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- ================================
+     Indian Wear Collection
+================================= -->
+
+<section class="collection-section">
+
+    <div class="section-heading">
+
+        <p>
+            INDIAN WEAR
+        </p>
+
+        <h2>
+            Indian Wear Collection
+        </h2>
+
+    </div>
+
+
+    <div class="products-container">
+
+        {% for product in indian_products|slice:":4" %}
+
+        <div class="product-card">
+
+            <div class="product-image">
+
+                <a href="{% url 'product_details' product.product_id %}">
+
+                    <img
+                        src="{% static 'shop/' %}{{ product.image_url }}"
+                        alt="{{ product.product_name }}"
+                    >
+
+                </a>
+
+            </div>
+
+
+            <div class="product-info">
+
+                <p class="product-brand">
+                    {{ product.brand }}
+                </p>
+
+                <h2>
+                    {{ product.product_name }}
+                </h2>
+
+                <p class="product-color">
+                    {{ product.color }}
+                </p>
+
+
+                <div class="price-section">
+
+                    <span class="price">
+                        ₹{{ product.price }}
+                    </span>
+
+                </div>
+
+
+                <a
+                    href="{% url 'product_details' product.product_id %}"
+                    class="view-details"
+                >
+                    View Details
+                </a>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+
+    <div class="best-sellers-button-container">
+
+        <a
+            href="{% url 'product_list' %}?category=indian"
+            class="best-sellers-button"
+        >
+            VIEW ALL INDIAN WEAR
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- ================================
+     Footer
+================================= -->
+
+<footer class="footer">
+
+    <div class="footer-content">
+
+        <div class="footer-brand">
+
+            <div class="footer-logo">
+                STYLEZONE
+            </div>
+
+            <p>
+                Your fashion store for modern,
+                comfortable and affordable
+                everyday fashion.
+            </p>
+
+        </div>
+
+
+        <div class="footer-column">
+
+            <h3>QUICK LINKS</h3>
+
+            <a href="/">Home</a>
+
+            <a href="{% url 'product_list' %}">Shop</a>
+
+            <a href="{% url 'my_orders' %}">My Orders</a>
+
+            <a href="{% url 'profile' %}">Profile</a>
+
+        </div>
+
+
+        <div class="footer-column">
+
+            <h3>SHOP</h3>
+
+            <a href="{% url 'product_list' %}?category=women">
+                Women
+            </a>
+
+            <a href="{% url 'product_list' %}?category=men">
+                Men
+            </a>
+
+            <a href="{% url 'product_list' %}?category=indian">
+                Indian Wear
+            </a>
+
+            <a href="{% url 'product_list' %}?category=bestseller">
+                Best Sellers
+            </a>
+
+        </div>
+
+
+        <div class="footer-column">
+
+            <h3>CUSTOMER SUPPORT</h3>
+
+            <a href="#">
+                Contact Us
+            </a>
+
+            <a href="#">
+                Shipping Information
+            </a>
+
+            <a href="#">
+                Returns & Exchanges
+            </a>
+
+            <a href="#">
+                Help & Support
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <div class="footer-bottom">
+
+        <p>
+            © 2026 StyleZone. All rights reserved.
+        </p>
+
+    </div>
+
+</footer>
+
+<!-- ================================
+     Icons
+================================= -->
+
+<script>
+    lucide.createIcons();
+</script>
+
+
+<!-- ================================
+     Back To Top Button
+================================= -->
+
+<button id="backToTop" class="back-to-top">
+    ↑
+</button>
+
+
+<script src="{% static 'shop/js/script.js' %}"></script>
+
+</body>
+</html>

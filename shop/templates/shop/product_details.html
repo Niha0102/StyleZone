@@ -1,0 +1,323 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        {{ product.product_name }} - StyleZone
+    </title>
+
+    <link rel="stylesheet"
+          href="{% static 'shop/css/style.css' %}">
+
+</head>
+
+
+<body>
+
+
+    <!-- ================================
+         CSRF Token
+    ================================= -->
+
+    <form style="display: none;">
+        {% csrf_token %}
+    </form>
+
+
+    <!-- ================================
+         Navigation
+    ================================= -->
+
+    <header class="navbar">
+
+        <div class="logo">
+            STYLEZONE
+        </div>
+
+
+        <nav>
+
+            <a href="/">
+                Home
+            </a>
+
+            <a href="{% url 'product_list' %}">
+                Shop
+            </a>
+
+            <a href="{% url 'my_orders' %}">
+                My Orders
+            </a>
+
+            <a href="{% url 'cart' %}">
+                Cart
+            </a>
+
+            <a href="{% url 'profile' %}">
+                Profile
+            </a>
+
+        </nav>
+
+    </header>
+
+
+    <!-- ================================
+         Back Button
+    ================================= -->
+
+    <a href="{% url 'product_list' %}"
+       class="back-button">
+
+        ← Back
+
+    </a>
+
+
+    <!-- ================================
+         Product Details
+    ================================= -->
+
+    <main class="product-details-container">
+
+
+        <!-- Product Image -->
+
+        <!-- <section class="product-image-section">
+
+            <div class="product-image-box rounded-product-image"></div> -->
+        <section class="product-image-section">
+            <div class="product-image-wrapper">
+                {% if product.is_best_seller %}
+                    <span class="best-seller-badge">
+                        BEST SELLER ⭐
+                    </span>
+                {% endif %}
+
+                <img
+                    src="{% static 'shop/' %}{{ product.image_url }}"
+                    alt="{{ product.product_name }}"
+                >
+
+            </div>
+
+        </section>
+
+
+        <!-- Product Information -->
+
+        <section class="product-info">
+
+
+            <!-- Brand -->
+
+            <p class="product-brand">
+                {{ product.brand }}
+            </p>
+
+
+            <!-- Product Name -->
+
+            <h1>
+                {{ product.product_name }}
+            </h1>
+
+
+            <!-- Description -->
+
+            <p class="product-description">
+                {{ product.description }}
+            </p>
+
+
+            <!-- Price -->
+
+            <div class="price-section">
+
+                {% if product.discount_percent %}
+
+                    <span class="product-price">
+                        ₹{{ discounted_price|floatformat:0 }}
+                    </span>
+
+                    <span class="original-price">
+                        ₹{{ product.price|floatformat:0 }}
+                    </span>
+
+                    <span class="discount">
+                        {{ product.discount_percent|floatformat:0 }}% OFF
+                    </span>
+
+                {% else %}
+
+                    <span class="product-price">
+                        ₹{{ product.price|floatformat:0 }}
+                    </span>
+
+                {% endif %}
+
+            </div>
+
+
+<!-- ================================
+     Size
+================================= -->
+
+<div class="product-option">
+
+    <label>
+        SELECT SIZE
+    </label>
+
+    <div class="size-options">
+
+        <button type="button" class="size-btn" data-size="S">
+            S
+        </button>
+
+        <button type="button" class="size-btn" data-size="M">
+            M
+        </button>
+
+        <button type="button" class="size-btn" data-size="L">
+            L
+        </button>
+
+        <button type="button" class="size-btn" data-size="XL">
+            XL
+        </button>
+
+    </div>
+
+</div>
+
+            <!-- ================================
+                 Quantity
+            ================================= -->
+
+            <div class="product-option">
+
+                <label>
+                    QUANTITY
+                </label>
+
+                <div class="quantity-box">
+
+                    <button
+                        type="button"
+                        id="decrease"
+                    >
+                        −
+                    </button>
+
+                    <span id="quantity">
+                        1
+                    </span>
+
+                    <button
+                        type="button"
+                        id="increase"
+                    >
+                        +
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================================
+                 Add To Cart
+            ================================= -->
+
+            <button
+                type="button"
+                id="add-cart"
+                class="add-cart-btn"
+                data-product-id="{{ product.product_id }}"
+            >
+                ADD TO CART
+            </button>
+
+            <p id="cart-message" class="cart-message"></p>
+
+
+            <!-- ================================
+                 Extra Information
+            ================================= -->
+
+            <div class="product-extra">
+
+
+                <!-- Color -->
+
+                <div class="extra-item">
+
+                    <span>
+                        COLOR
+                    </span>
+
+                    <strong>
+                        {{ product.color }}
+                    </strong>
+
+                </div>
+
+
+                <!-- Brand -->
+
+                <div class="extra-item">
+
+                    <span>
+                        BRAND
+                    </span>
+
+                    <strong>
+                        {{ product.brand }}
+                    </strong>
+
+                </div>
+
+
+                <!-- Delivery -->
+
+                <div class="extra-item">
+
+                    <span>
+                        DELIVERY
+                    </span>
+
+                    <strong>
+                        Available
+                    </strong>
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+    <!-- ================================
+         JavaScript
+    ================================= -->
+
+    <script src="{% static 'shop/js/script.js' %}"></script>
+
+
+</body>
+
+</html>

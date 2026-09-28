@@ -1,0 +1,468 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>StyleZone - Shop</title>
+
+    <link rel="stylesheet" href="{% static 'shop/css/style.css' %}">
+
+</head>
+
+
+<body>
+
+
+<!-- ================================
+     Navigation
+================================= -->
+
+<header class="navbar">
+
+    <a href="/" class="back-button">
+        ← Back
+    </a>
+
+    <div class="logo">
+        STYLEZONE
+    </div>
+
+    <nav>
+
+        <a href="/">
+            Home
+        </a>
+
+        <a href="{% url 'product_list' %}">
+            Shop
+        </a>
+
+        <div class="nav-icons">
+
+            <a href="{% url 'cart' %}" class="nav-action">
+                <i data-lucide="shopping-bag"></i>
+                <span>Cart</span>
+            </a>
+
+            <a href="{% url 'profile' %}" class="nav-action">
+                <i data-lucide="user"></i>
+                <span>Profile</span>
+            </a>
+
+        </div>
+
+    </nav>
+
+</header>
+
+
+
+<!-- ================================
+     Page Header
+================================= -->
+
+<section class="shop-header">
+
+    <h1>
+        Shop
+    </h1>
+
+    <p>
+        Discover your style with StyleZone
+    </p>
+
+</section>
+
+
+
+<!-- ================================
+     Search
+================================= -->
+
+<section class="shop-search">
+
+    <form
+        method="GET"
+        action="{% url 'product_list' %}"
+    >
+
+        <input
+            type="text"
+            name="search"
+            placeholder="Search products..."
+            value="{{ search|default:'' }}"
+        >
+
+        <button type="submit">
+            SEARCH
+        </button>
+
+    </form>
+
+</section>
+
+
+
+<!-- ================================
+     Product Categories
+================================= -->
+
+<section class="shop-categories">
+
+    <a
+        href="{% url 'product_list' %}"
+        class="{% if not request.GET.category %}active{% endif %}"
+    >
+        All
+    </a>
+
+    <a
+        href="{% url 'product_list' %}?category=women"
+        class="{% if request.GET.category == 'women' %}active{% endif %}"
+    >
+        Women
+    </a>
+
+    <a
+        href="{% url 'product_list' %}?category=men"
+        class="{% if request.GET.category == 'men' %}active{% endif %}"
+    >
+        Men
+    </a>
+
+    <a
+        href="{% url 'product_list' %}?category=indian"
+        class="{% if request.GET.category == 'indian' %}active{% endif %}"
+    >
+        Indian Wear
+    </a>
+
+    <a
+        href="{% url 'product_list' %}?category=bestseller"
+        class="{% if request.GET.category == 'bestseller' %}active{% endif %}"
+    >
+        Best Sellers ⭐
+    </a>
+
+</section>
+
+
+<!-- ================================
+     Product Filters
+================================= -->
+
+<section class="product-filters">
+
+    <form
+        method="GET"
+        action="{% url 'product_list' %}"
+    >
+
+        {% if request.GET.category %}
+
+            <input
+                type="hidden"
+                name="category"
+                value="{{ request.GET.category }}"
+            >
+
+        {% endif %}
+
+
+
+        <!-- Colour -->
+
+        <div class="filter-group">
+
+            <label for="color">
+                Colour
+            </label>
+
+            <select
+                name="color"
+                id="color"
+            >
+
+                <option value="">
+                    All Colours
+                </option>
+
+                {% for available_color in colors %}
+
+                    <option
+                        value="{{ available_color }}"
+                        {% if color == available_color %}
+                            selected
+                        {% endif %}
+                    >
+                        {{ available_color }}
+                    </option>
+
+                {% endfor %}
+
+            </select>
+
+        </div>
+
+
+
+        <!-- Price -->
+
+        <div class="filter-group">
+
+            <label for="price_range">
+                Price
+            </label>
+
+            <select
+                name="price_range"
+                id="price_range"
+            >
+
+                <option value="">
+                    All Prices
+                </option>
+
+                <option
+                    value="0-499"
+                    {% if request.GET.price_range == "0-499" %}
+                        selected
+                    {% endif %}
+                >
+                    Under ₹500
+                </option>
+
+                <option
+                    value="500-999"
+                    {% if request.GET.price_range == "500-999" %}
+                        selected
+                    {% endif %}
+                >
+                    ₹500 - ₹999
+                </option>
+
+                <option
+                    value="1000-1499"
+                    {% if request.GET.price_range == "1000-1499" %}
+                        selected
+                    {% endif %}
+                >
+                    ₹1,000 - ₹1,499
+                </option>
+
+                <option
+                    value="1500-1999"
+                    {% if request.GET.price_range == "1500-1999" %}
+                        selected
+                    {% endif %}
+                >
+                    ₹1,500 - ₹1,999
+                </option>
+
+                <option
+                    value="2000-2999"
+                    {% if request.GET.price_range == "2000-2999" %}
+                        selected
+                    {% endif %}
+                >
+                    ₹2,000 - ₹2,999
+                </option>
+
+                <option
+                    value="3000+"
+                    {% if request.GET.price_range == "3000+" %}
+                        selected
+                    {% endif %}
+                >
+                    ₹3,000+
+                </option>
+
+            </select>
+
+        </div>
+
+
+
+        <!-- Sort -->
+
+        <div class="filter-group">
+
+            <label for="sort">
+                Sort By
+            </label>
+
+            <select
+                name="sort"
+                id="sort"
+            >
+
+                <option value="">
+                    Default
+                </option>
+
+                <option
+                    value="price_low"
+                    {% if request.GET.sort == "price_low" %}
+                        selected
+                    {% endif %}
+                >
+                    Price: Low to High
+                </option>
+
+                <option
+                    value="price_high"
+                    {% if request.GET.sort == "price_high" %}
+                        selected
+                    {% endif %}
+                >
+                    Price: High to Low
+                </option>
+
+                <option
+                    value="name"
+                    {% if request.GET.sort == "name" %}
+                        selected
+                    {% endif %}
+                >
+                    Name: A to Z
+                </option>
+
+            </select>
+
+        </div>
+
+
+
+        <!-- Apply -->
+
+        <button type="submit">
+            APPLY FILTER
+        </button>
+
+    </form>
+
+</section>
+
+
+
+<!-- ================================
+     Products
+================================= -->
+
+<main class="products-container">
+
+    {% for product in products %}
+
+        <div class="product-card">
+
+
+            <!-- Product Image -->
+
+            <div class="product-image">
+
+                <a
+                    href="{% url 'product_details' product.product_id %}"
+                >
+
+                    <img
+                        src="{% static 'shop/' %}{{ product.image_url }}"
+                        alt="{{ product.product_name }}"
+                    >
+
+                </a>
+
+            </div>
+
+
+
+            <!-- Product Information -->
+
+            <div class="product-info">
+
+                <p class="product-brand">
+                    {{ product.brand }}
+                </p>
+
+
+                <h2>
+                    {{ product.product_name }}
+                </h2>
+
+
+                <p class="product-color">
+                    {{ product.color }}
+                </p>
+
+
+                <div class="price-section">
+
+                    <span class="price">
+                        ₹{{ product.price }}
+                    </span>
+
+                    {% if product.discount_percent %}
+
+                        <span class="discount">
+                            {{ product.discount_percent }}% OFF
+                        </span>
+
+                    {% endif %}
+
+                </div>
+
+
+                <a
+                    href="{% url 'product_details' product.product_id %}"
+                    class="view-details"
+                >
+                    View Details
+                </a>
+
+            </div>
+
+        </div>
+
+
+    {% empty %}
+
+        <div class="empty-products">
+
+            <h2>
+                No products available
+            </h2>
+
+            <p>
+                Products will appear here when they are added.
+            </p>
+
+        </div>
+
+    {% endfor %}
+
+</main>
+
+
+
+<!-- ================================
+     Back To Top
+================================= -->
+
+<button
+    id="backToTop"
+    class="back-to-top"
+>
+    ↑
+</button>
+
+
+<script src="{% static 'shop/js/script.js' %}"></script>
+
+</body>
+
+</html>

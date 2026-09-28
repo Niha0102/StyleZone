@@ -1,0 +1,209 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>StyleZone - Order Details</title>
+
+    <link rel="stylesheet"
+          href="{% static 'shop/css/style.css' %}">
+
+</head>
+
+<body>
+
+
+<header class="navbar">
+
+    <a href="{% url 'my_orders' %}"
+       class="back-button">
+
+        ← Back to Orders
+
+    </a>
+
+
+    <div class="logo">
+        STYLEZONE
+    </div>
+
+
+    <nav>
+
+        <a href="/">
+            Home
+        </a>
+
+        <a href="{% url 'product_list' %}">
+            Shop
+        </a>
+
+        <a href="{% url 'cart' %}">
+            Cart
+        </a>
+
+        <a href="{% url 'profile' %}">
+            Profile
+        </a>
+
+        <a href="{% url 'my_orders' %}">
+            My Orders
+        </a>
+
+    </nav>
+
+</header>
+
+
+
+<section class="order-details-header">
+
+    <h1>
+        Order #{{ order.order_id }}
+    </h1>
+
+    <p>
+        Order Details
+    </p>
+
+</section>
+
+
+
+<main class="order-details-container">
+
+
+    <!-- Order Information -->
+
+    <section class="order-details-section">
+
+        <h2>
+            Order Information
+        </h2>
+
+        <div class="order-info-row">
+
+            <span>
+                Order Date
+            </span>
+
+            <strong>
+                {{ order.order_date|date:"d M Y" }}
+            </strong>
+
+        </div>
+
+
+        <div class="order-info-row">
+
+            <span>
+                Payment Method
+            </span>
+
+            <strong>
+                {{ order.payment_method }}
+            </strong>
+
+        </div>
+
+
+        <div class="order-info-row">
+
+            <span>
+                Order Status
+            </span>
+
+            <strong>
+                {{ order.order_status }}
+            </strong>
+
+        </div>
+
+
+        <div class="order-info-row">
+
+            <span>
+                Delivery Address
+            </span>
+
+            <strong>
+                {{ order.delivery_address }}
+            </strong>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- Products -->
+
+    <section class="order-details-section">
+
+        <h2>
+            Ordered Products
+        </h2>
+
+
+        {% for item in order_items %}
+
+            <div class="ordered-product">
+
+                <div>
+
+                    <h3>
+                        {{ item.product_name }}
+                    </h3>
+
+                    <p>
+                        Size: {{ item.size_label }}
+                    </p>
+
+                    <p>
+                        Quantity: {{ item.quantity }}
+                    </p>
+
+                    <p>
+                        Unit Price: ₹{{ item.unit_price }}
+                    </p>
+
+                </div>
+
+
+                <strong>
+                    ₹{{ item.subtotal }}
+                </strong>
+
+            </div>
+
+        {% endfor %}
+
+
+        <div class="order-details-total">
+
+            <span>
+                Total
+            </span>
+
+            <strong>
+                ₹{{ order.total_amount }}
+            </strong>
+
+        </div>
+
+    </section>
+
+
+</main>
+
+
+</body>
+
+</html>

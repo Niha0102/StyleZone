@@ -1,0 +1,297 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>StyleZone - Checkout</title>
+
+    <link
+        rel="stylesheet"
+        href="{% static 'shop/css/style.css' %}"
+    >
+
+</head>
+
+
+<body>
+
+
+<!-- ================================
+     Navigation
+================================= -->
+
+<header class="navbar">
+
+    <a href="{% url 'cart' %}" class="back-button">
+        ← Back to Cart
+    </a>
+
+    <div class="logo">
+        STYLEZONE
+    </div>
+
+    <nav>
+
+        <a href="/">
+            Home
+        </a>
+
+        <a href="{% url 'product_list' %}">
+            Shop
+        </a>
+
+        <div class="nav-icons">
+
+            <a href="{% url 'cart' %}" class="nav-action">
+                Cart
+            </a>
+
+            <a href="{% url 'profile' %}" class="nav-action">
+                Profile
+            </a>
+
+        </div>
+
+    </nav>
+
+</header>
+
+
+
+<!-- ================================
+     Checkout Header
+================================= -->
+
+<section class="checkout-header">
+
+    <h1>
+        Checkout
+    </h1>
+
+    <p>
+        Complete your order
+    </p>
+
+</section>
+
+
+
+<!-- ================================
+     Checkout Form
+================================= -->
+
+<main class="checkout-container">
+
+<form
+    method="POST"
+    action="{% url 'checkout' %}"
+>
+
+    {% csrf_token %}
+
+
+    <!-- ============================
+         Delivery Information
+    ============================= -->
+
+    <section class="checkout-section">
+
+        <h2>
+            Delivery Information
+        </h2>
+
+
+        <div class="checkout-form-group">
+
+            <label>
+                Full Name
+            </label>
+
+            <input
+                type="text"
+                name="full_name"
+                value="{{ user.full_name }}"
+                placeholder="Enter your full name"
+                required
+            >
+
+        </div>
+
+
+        <div class="checkout-form-group">
+
+            <label>
+                Phone
+            </label>
+
+            <input
+                type="text"
+                name="phone"
+                value="{{ user.phone }}"
+                placeholder="Enter your phone number"
+                required
+            >
+
+        </div>
+
+
+        <div class="checkout-form-group">
+
+            <label>
+                Address
+            </label>
+
+            <textarea
+                name="address"
+                placeholder="Enter your delivery address"
+                required
+            >{{ user.address }}</textarea>
+
+        </div>
+
+
+        <div class="checkout-form-group">
+
+            <label>
+                City
+            </label>
+
+            <input
+                type="text"
+                name="city"
+                value="{{ user.city }}"
+                placeholder="Enter city"
+                required
+            >
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ============================
+         Order Summary
+    ============================= -->
+
+    <section class="checkout-section">
+
+        <h2>
+            Order Summary
+        </h2>
+
+
+        {% for item in cart_items %}
+
+            <div class="checkout-item">
+
+                <div>
+
+                    <h3>
+                        {{ item.product.product_name }}
+                    </h3>
+
+                    <p>
+                        Size: {{ item.cart_item.size_label }}
+                    </p>
+
+                    <p>
+                        Quantity: {{ item.cart_item.quantity }}
+                    </p>
+
+                </div>
+
+
+                <span>
+                    ₹{{ item.subtotal }}
+                </span>
+
+            </div>
+
+        {% endfor %}
+
+
+        <div class="checkout-total">
+
+            <span>
+                Total
+            </span>
+
+            <strong>
+                ₹{{ total }}
+            </strong>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ============================
+         Payment
+    ============================= -->
+
+    <section class="checkout-section">
+
+        <h2>
+            Payment Method
+        </h2>
+
+
+        <label class="payment-option">
+
+            <input
+                type="radio"
+                name="payment_method"
+                value="COD"
+                checked
+            >
+
+            Cash on Delivery
+
+        </label>
+
+
+        <label class="payment-option">
+
+            <input
+                type="radio"
+                name="payment_method"
+                value="Online"
+            >
+
+            Online Payment
+
+        </label>
+
+    </section>
+
+
+
+    <!-- ============================
+         Place Order
+    ============================= -->
+
+    <section class="checkout-action">
+
+        <button type="submit">
+            PLACE ORDER
+        </button>
+
+    </section>
+
+
+</form>
+
+</main>
+
+
+</body>
+
+</html>

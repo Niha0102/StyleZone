@@ -1,0 +1,174 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>StyleZone - My Orders</title>
+
+    <link rel="stylesheet"
+          href="{% static 'shop/css/style.css' %}">
+
+</head>
+
+<body>
+
+
+<!-- ================================
+     Navigation
+================================= -->
+
+<header class="navbar">
+
+    <a href="{% url 'product_list' %}"
+       class="back-button">
+
+        ← Back to Shop
+
+    </a>
+
+
+    <div class="logo">
+        STYLEZONE
+    </div>
+
+
+    <nav>
+
+        <a href="/">
+            Home
+        </a>
+
+        <a href="{% url 'product_list' %}">
+            Shop
+        </a>
+
+        <a href="{% url 'cart' %}">
+            Cart
+        </a>
+
+        <a href="{% url 'profile' %}">
+            Profile
+        </a>
+
+    </nav>
+
+</header>
+
+
+
+<!-- ================================
+     Page Header
+================================= -->
+
+<section class="orders-header">
+
+    <h1>
+        My Orders
+    </h1>
+
+    <p>
+        View your previous orders
+    </p>
+
+</section>
+
+
+
+<!-- ================================
+     Orders
+================================= -->
+
+<main class="orders-container">
+
+    {% if orders %}
+
+        {% for order in orders %}
+
+            <div class="order-card">
+
+                <div class="order-info">
+
+                    <h2>
+                        Order #{{ order.order_id }}
+                    </h2>
+
+                    <p>
+                        Date:
+                        {{ order.order_date|date:"d M Y" }}
+                    </p>
+
+                    <p>
+                        Payment:
+                        {{ order.payment_method }}
+                    </p>
+
+                    <p>
+                        Status:
+                        {{ order.order_status }}
+                    </p>
+
+                </div>
+
+
+                <div class="order-total">
+
+                    <span>
+                        Total
+                    </span>
+
+                    <strong>
+                        ₹{{ order.total_amount }}
+                    </strong>
+
+                </div>
+
+
+                <div class="order-action">
+
+                    <a
+                        href="{% url 'order_details' order.order_id %}"
+                        class="view-order-button"
+                    >
+                        VIEW DETAILS
+                    </a>
+
+                </div>
+
+            </div>
+
+        {% endfor %}
+
+
+    {% else %}
+
+        <div class="empty-orders">
+
+            <h2>
+                No Orders Yet
+            </h2>
+
+            <p>
+                Your placed orders will appear here.
+            </p>
+
+            <a href="{% url 'product_list' %}">
+                CONTINUE SHOPPING
+            </a>
+
+        </div>
+
+    {% endif %}
+
+</main>
+
+
+</body>
+
+</html>

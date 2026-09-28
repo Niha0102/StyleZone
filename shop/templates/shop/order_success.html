@@ -1,0 +1,105 @@
+```html
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>StyleZone - Order Success</title>
+
+    <link rel="stylesheet"
+          href="{% static 'shop/css/style.css' %}">
+
+</head>
+
+<body>
+
+    <!-- ================================
+         Navigation Bar
+    ================================= -->
+
+    <header class="navbar">
+
+        <div class="logo">
+            STYLEZONE
+        </div>
+
+        <nav>
+
+            <a href="/">
+                Home
+            </a>
+
+            <a href="{% url 'product_list' %}">
+                Shop
+            </a>
+
+            <a href="{% url 'my_orders' %}">
+                My Orders
+            </a>
+
+            <a href="{% url 'cart' %}">
+                Cart
+            </a>
+
+            <a href="{% url 'profile' %}">
+                Profile
+            </a>
+
+        </nav>
+
+    </header>
+
+
+    <!-- ================================
+         Order Success
+    ================================= -->
+
+    <main class="order-success-container">
+
+        <div class="order-success-box">
+
+            <div class="order-success-icon">
+                ✓
+            </div>
+
+            <h1>
+                Order Placed Successfully
+            </h1>
+
+            <p class="order-success-message">
+                Thank you for shopping with StyleZone.
+            </p>
+
+            <p class="order-id">
+                Your Order ID is:
+                <strong>#{{ order_id }}</strong>
+            </p>
+
+            <div class="order-success-actions">
+
+                <a href="{% url 'my_orders' %}"
+                   class="view-orders-btn">
+                    VIEW MY ORDERS
+                </a>
+
+                <a href="{% url 'product_list' %}"
+                   class="continue-shopping-btn">
+                    CONTINUE SHOPPING
+                </a>
+
+            </div>
+
+        </div>
+
+    </main>
+
+</body>
+
+</html>
