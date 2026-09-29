@@ -1,7 +1,7 @@
 asgiref==3.12.1
 Django==6.1.1
 gunicorn==26.2.0
-mysqlclient==2.3.0
+mysql-connector-python==9.5.0
 numpy==2.5.3
 pillow==12.3.0
 python-dotenv==1.2.3
