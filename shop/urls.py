@@ -17,11 +17,18 @@ from shop.controller.checkout_controller import checkout
 from shop.controller.order_success_controller import order_success
 from shop.controller.my_orders_controller import my_orders
 from shop.controller.order_details_controller import order_details
+from .controller.entry_controller import entry
 
 urlpatterns = [
 
     path(
         '',
+        entry,
+        name='entry'
+    ),
+
+    path(
+        'home/',
         home,
         name='home'
     ),
