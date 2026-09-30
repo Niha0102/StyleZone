@@ -3972,3 +3972,150 @@ body {
     background: #171717;
     color: #ffffff;
 }
+
+/* =================================
+   Mobile Category Layout
+================================= */
+
+@media (max-width: 600px) {
+
+    .categories-grid,
+    .category-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    .categories-grid img,
+    .category-grid img {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+    }
+}
+
+/* =================================
+   Mobile Product Collections
+================================= */
+
+@media (max-width: 600px) {
+
+    .products-grid,
+    .collection-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    .products-grid img,
+    .collection-grid img {
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+    }
+
+    .products-grid h3,
+    .collection-grid h3 {
+        font-size: 15px;
+    }
+
+    .products-grid p,
+    .collection-grid p {
+        font-size: 13px;
+    }
+}
+
+/* =================================
+   Mobile Navbar
+================================= */
+
+@media (max-width: 600px) {
+
+    .navbar {
+        height: 65px;
+        padding: 0 12px;
+    }
+
+    .nav-container {
+        padding: 0;
+    }
+
+    .nav-logo {
+        font-size: 20px;
+    }
+
+    .nav-links {
+        gap: 10px;
+    }
+
+    .nav-links a {
+        font-size: 12px;
+    }
+
+    .nav-icons {
+        gap: 8px;
+    }
+
+    .nav-icons a {
+        font-size: 16px;
+    }
+
+    body {
+        padding-top: 65px;
+    }
+}
+
+/* =================================
+   Mobile Product Cards
+================================= */
+
+@media (max-width: 600px) {
+
+    .product-card {
+        width: 100%;
+        overflow: hidden;
+    }
+
+    .product-card img {
+        width: 100%;
+        height: 240px;
+        object-fit: cover;
+    }
+
+    .product-card h3 {
+        font-size: 15px;
+        margin-top: 8px;
+    }
+
+    .product-card .price {
+        font-size: 14px;
+    }
+
+    .product-card .btn,
+    .product-card a {
+        font-size: 12px;
+    }
+}
+
+/* =================================
+   Mobile Buttons
+================================= */
+
+@media (max-width: 600px) {
+
+    .btn,
+    button {
+        max-width: 100%;
+        font-size: 14px;
+        padding: 10px 14px;
+    }
+
+    .view-details,
+    .view-all {
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .quantity-controls {
+        max-width: 160px;
+    }
+}
