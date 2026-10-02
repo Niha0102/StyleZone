@@ -42,7 +42,32 @@ The project provides a complete shopping flow from user login and product browsi
 
 ## 📸 Screenshots
 
-Screenshots of the StyleZone application will be added here.
+### 🔐 Login
+![Login](project-media/screenshots/login.png.png)
+
+### 🏠 Home
+![Home](project-media/screenshots/home.png.png)
+
+### 👗 Products
+![Products](project-media/screenshots/products.png.png)
+
+### 🛍️ Product Details
+![Product Details](project-media/screenshots/product_details.png.png)
+
+### 🛒 Cart
+![Cart](project-media/screenshots/cart.png.png)
+
+### 💳 Checkout
+![Checkout](project-media/screenshots/checkout.png.png)
+
+### ✅ Order Success
+![Order Success](project-media/screenshots/order_success.png.png)
+
+### 📦 My Orders
+![My Orders](project-media/screenshots/my_orders.png.png)
+
+### 👤 Profile
+![Profile](project-media/screenshots/profile.png.png)
 
 ## 🎥 Project Demo
 
