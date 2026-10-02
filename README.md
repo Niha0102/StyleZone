@@ -137,7 +137,7 @@ http://127.0.0.1:8000/
 
 ## 👩‍💻 Author
 
-**Niha Dodamani**
+**Niha Javeed Dodamani**
 
 B.E. Artificial Intelligence & Data Science
 
